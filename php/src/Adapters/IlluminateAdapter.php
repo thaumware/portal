@@ -7,8 +7,7 @@ use Thaumware\Portal\Contracts\DataFetcher;
 
 /**
  * Laravel/Illuminate implementation
- * 
- * Install in Laravel app, not in portal package
+ * Receives dependencies in constructor - no direct imports
  */
 class IlluminateAdapter implements StorageAdapter, DataFetcher
 {
@@ -20,7 +19,7 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
 
     public function findOriginByName(string $name): ?array
     {
-        $row = $this->db::table('portal_origins')
+        $row = $this->db->table('portal_origins')
             ->where('name', $name)
             ->whereNull('deleted_at')
             ->first();
@@ -30,7 +29,7 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
 
     public function findOriginById(string $id): ?array
     {
-        $row = $this->db::table('portal_origins')
+        $row = $this->db->table('portal_origins')
             ->where('id', $id)
             ->where('is_active', true)
             ->whereNull('deleted_at')
@@ -41,9 +40,9 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
 
     public function createOrigin(string $name, string $source, string $type): string
     {
-        $id = $this->str::uuid()->toString();
+        $id = $this->str->uuid()->toString();
 
-        $this->db::table('portal_origins')->insert([
+        $this->db->table('portal_origins')->insert([
             'id' => $id,
             'name' => $name,
             'direction' => $source,
@@ -63,8 +62,8 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
         string $relatedId,
         ?array $metadata
     ): void {
-        $this->db::table('portals')->insert([
-            'id' => $this->str::uuid()->toString(),
+        $this->db->table('portals')->insert([
+            'id' => $this->str->uuid()->toString(),
             'has_portal_id' => $modelId,
             'has_portal_type' => $modelType,
             'portal_origin_id' => $originId,
@@ -77,7 +76,7 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
 
     public function findPortalsByModelIds(array $modelIds): array
     {
-        return $this->db::table('portals as p')
+        return $this->db->table('portals as p')
             ->join('portal_origins as o', 'p.portal_origin_id', '=', 'o.id')
             ->whereIn('p.has_portal_id', $modelIds)
             ->whereNull('p.deleted_at')
@@ -111,7 +110,7 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
 
     public function deactivateOrigin(string $name): void
     {
-        $this->db::table('portal_origins')
+        $this->db->table('portal_origins')
             ->where('name', $name)
             ->update([
                 'deleted_at' => date('Y-m-d H:i:s'),
@@ -121,7 +120,7 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
 
     private function queryTable(string $table, array $filters): array
     {
-        $query = $this->db::table($table);
+        $query = $this->db->table($table);
 
         foreach ($filters as $field => $value) {
             if ($field === 'ids') {
@@ -137,7 +136,7 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
     private function queryHttp(string $url, array $filters): array
     {
         try {
-            $response = $this->http::get($url, $filters);
+            $response = $this->http->get($url, $filters);
             return $response->json() ?? [];
         } catch (\Exception $e) {
             return [];
