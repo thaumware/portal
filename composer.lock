@@ -1,0 +1,61 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "f38a3be913164b12af34b80ad3df51ea",
+    "packages": [
+        {
+            "name": "thaumware/core",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JotaZen/thaumware-php-core.git",
+                "reference": "4406dd0dd6436159a186311b15f1b06c649cd80e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JotaZen/thaumware-php-core/zipball/4406dd0dd6436159a186311b15f1b06c649cd80e",
+                "reference": "4406dd0dd6436159a186311b15f1b06c649cd80e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Thaumware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thaumware",
+                    "email": "dev@thaumware.com"
+                }
+            ],
+            "description": "Core utilities and helpers for Thaumware",
+            "support": {
+                "issues": "https://github.com/JotaZen/thaumware-php-core/issues",
+                "source": "https://github.com/JotaZen/thaumware-php-core/tree/v1.1.0"
+            },
+            "time": "2025-11-09T22:57:50+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^8.2"
+    },
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+}

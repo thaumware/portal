@@ -4,7 +4,7 @@ namespace Thaumware\Portal\Adapters;
 
 use Thaumware\Portal\Contracts\StorageAdapter;
 use Thaumware\Portal\Contracts\DataFetcher;
-use Thaumware\Core\Support\Uuid;
+use Thaumware\Support\Uuid\Uuid;
 
 /**
  * Laravel/Illuminate implementation
