@@ -4,17 +4,16 @@ namespace Thaumware\Portal\Adapters;
 
 use Thaumware\Portal\Contracts\StorageAdapter;
 use Thaumware\Portal\Contracts\DataFetcher;
+use Thaumware\Core\Support\Uuid;
 
 /**
  * Laravel/Illuminate implementation
- * Receives dependencies in constructor - no direct imports
  */
 class IlluminateAdapter implements StorageAdapter, DataFetcher
 {
     public function __construct(
         private object $db,
         private object $http,
-        private object $str,
         private object $schema
     ) {
     }
@@ -85,7 +84,7 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
 
     public function createOrigin(string $name, string $source, string $type): string
     {
-        $id = $this->str->uuid()->toString();
+        $id = Uuid::v4();
 
         $this->db->table('portal_origins')->insert([
             'id' => $id,
@@ -108,7 +107,7 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
         ?array $metadata
     ): void {
         $this->db->table('portals')->insert([
-            'id' => $this->str->uuid()->toString(),
+            'id' => Uuid::v4(),
             'has_portal_id' => $modelId,
             'has_portal_type' => $modelType,
             'portal_origin_id' => $originId,
