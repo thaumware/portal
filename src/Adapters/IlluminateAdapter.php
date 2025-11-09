@@ -14,8 +14,52 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
     public function __construct(
         private object $db,
         private object $http,
-        private object $str
+        private object $str,
+        private object $schema
     ) {
+    }
+
+    /**
+     * Install Portal tables (Illuminate-specific)
+     */
+    public function install(): void
+    {
+        if (!$this->schema->hasTable('portal_origins')) {
+            $this->schema->create('portal_origins', function ($table) {
+                $table->uuid('id')->primary();
+                $table->string('name')->unique();
+                $table->string('direction');
+                $table->string('type');
+                $table->boolean('is_active')->default(true);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+
+        if (!$this->schema->hasTable('portals')) {
+            $this->schema->create('portals', function ($table) {
+                $table->uuid('id')->primary();
+                $table->string('has_portal_id');
+                $table->string('has_portal_type');
+                $table->uuid('portal_origin_id');
+                $table->string('external_id')->nullable();
+                $table->json('metadata')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+                $table->index('has_portal_id');
+                $table->index('portal_origin_id');
+            });
+        }
+    }
+
+    public function hasTable(string $table): bool
+    {
+        return $this->schema->hasTable($table);
+    }
+
+    public function createTable(string $table, callable $callback): void
+    {
+        $this->schema->create($table, $callback);
     }
 
     public function findOriginByName(string $name): ?array
