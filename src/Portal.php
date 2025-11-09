@@ -60,8 +60,12 @@ class Portal
         $app->singleton(PortalRegistry::class);
         $app->singleton(RelationLoader::class);
 
-        // Create tables if needed
-        self::ensureTables();
+        // Create tables if needed (non-blocking if DB not ready)
+        try {
+            self::ensureTables();
+        } catch (\Exception) {
+            // Database not ready yet - will be created on first use or via artisan
+        }
 
         self::$installed = true;
     }
