@@ -11,12 +11,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Thaumware\\Portal\\": "php/src/"
+            "Thaumware\\Portal\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Thaumware\\Portal\\Tests\\": "php/tests/"
+            "Thaumware\\Portal\\Tests\\": "tests/"
         }
     },
     "require": {
