@@ -15,7 +15,8 @@ class IlluminateAdapter implements StorageAdapter, DataFetcher
         private object $db,
         private object $http,
         private object $str
-    ) {}
+    ) {
+    }
 
     public function findOriginByName(string $name): ?array
     {
