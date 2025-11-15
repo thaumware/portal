@@ -35,4 +35,12 @@
         "microservices",
         "laravel"
     ]
+    ,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Thaumware\\Portal\\Providers\\IlluminatePortalServiceProvider"
+            ]
+        }
+    }
 }

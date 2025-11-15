@@ -102,4 +102,12 @@ class MockAdapter implements StorageAdapter, DataFetcher
             }
         }
     }
+
+    /**
+     * No-op installer for the mock adapter (keeps interface compatibility).
+     */
+    public function install(): void
+    {
+        // intentionally empty for tests
+    }
 }

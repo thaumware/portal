@@ -24,4 +24,9 @@ interface StorageAdapter
     public function findPortalsByModelIds(array $modelIds): array;
     
     public function deactivateOrigin(string $name): void;
+
+    /**
+     * Optional installer hook for adapters that need to create schema or setup resources.
+     */
+    public function install(): void;
 }
